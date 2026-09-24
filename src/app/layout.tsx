@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppFab from "@/components/WhatsAppFab";
 import RevealObserver from "@/components/RevealObserver";
+import OcultarEnAdmin from "@/components/OcultarEnAdmin";
 import "./globals.css";
 
 const serif = Cormorant_Garamond({
@@ -44,10 +45,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="es-AR" className={`${serif.variable} ${sans.variable}`}>
       <body>
-        <Header />
+        <OcultarEnAdmin>
+          <Header />
+        </OcultarEnAdmin>
         <main>{children}</main>
-        <Footer />
-        <WhatsAppFab />
+        <OcultarEnAdmin>
+          <Footer />
+          <WhatsAppFab />
+        </OcultarEnAdmin>
         <RevealObserver />
       </body>
     </html>
