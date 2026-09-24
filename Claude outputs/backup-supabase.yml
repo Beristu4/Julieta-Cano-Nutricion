@@ -1,0 +1,48 @@
+name: Backup diario de Supabase
+
+# Todos los días a las 03:00 (Argentina) = 06:00 UTC. También se puede correr a mano.
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Instalar cliente de Postgres 17
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y postgresql-common
+          sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y
+          sudo apt-get install -y postgresql-client-17
+
+      - name: Exportar la base
+        env:
+          # Supabase → Connect → "Session pooler" (IPv4). Guardarlo como secret del repo.
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+        run: |
+          if [ -z "$SUPABASE_DB_URL" ]; then
+            echo "::error::Falta el secret SUPABASE_DB_URL"
+            exit 1
+          fi
+          FECHA=$(date -u +%F)
+          mkdir -p backup
+          # Esquema + datos de la app
+          /usr/lib/postgresql/17/bin/pg_dump "$SUPABASE_DB_URL" \
+            --schema=public --no-owner --no-privileges \
+            --format=custom --file="backup/public-$FECHA.dump"
+          # Usuarios del panel (solo datos de auth.users, para poder restaurar perfiles)
+          /usr/lib/postgresql/17/bin/pg_dump "$SUPABASE_DB_URL" \
+            --data-only --table=auth.users --no-owner --no-privileges \
+            --format=custom --file="backup/auth-users-$FECHA.dump" \
+            || echo "::warning::No se pudo exportar auth.users (el backup de public sí quedó)"
+          ls -lh backup
+
+      - name: Guardar backup (30 días)
+        uses: actions/upload-artifact@v4
+        with:
+          name: backup-supabase-${{ github.run_id }}
+          path: backup/
+          retention-days: 30
