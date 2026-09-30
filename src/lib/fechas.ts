@@ -63,3 +63,14 @@ export function fechaCorta(fecha: string): string {
 export function aInputLocal(iso: string): string {
   return `${fechaAR(iso)}T${horaAR(iso)}`;
 }
+
+/** Primer día del mes de esa fecha. */
+export function primeroDelMes(fecha: string): string {
+  return `${fecha.slice(0, 8)}01`;
+}
+
+/** Suma meses y devuelve el primer día de ese mes. */
+export function sumarMeses(fecha: string, n: number): string {
+  const [a, m] = fecha.split("-").map(Number);
+  return new Date(Date.UTC(a, m - 1 + n, 1)).toISOString().slice(0, 10);
+}

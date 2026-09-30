@@ -6,8 +6,10 @@ import { WHATSAPP_VISIBLE, waLink } from "@/lib/site";
 const SERVICIOS = [
   { num: "01", titulo: "Nutrición", desc: "Planes personalizados basados en alimentación real, flexible y sostenible en el tiempo." },
   { num: "02", titulo: "Nutrición deportiva", desc: "Estrategias de alimentación para acompañar tu rendimiento y tus objetivos deportivos." },
-  { num: "03", titulo: "Antropometría", desc: "Medición y seguimiento de tu composición corporal para ajustar el plan con precisión." },
-  { num: "04", titulo: "Salud física", desc: "Un abordaje integral que cuida tu bienestar, tu energía y tus hábitos día a día." },
+  { num: "03", titulo: "Nutrición en el embarazo", desc: "Una alimentación segura y sin culpa para cubrir tus necesidades y las de tu bebé en cada etapa." },
+  { num: "04", titulo: "Antropometría", desc: "Medición y seguimiento de tu composición corporal para ajustar el plan con precisión." },
+  { num: "05", titulo: "Preparación integral para el nacimiento", desc: "Acompañamiento para llegar al nacimiento con información, hábitos saludables y tranquilidad." },
+  { num: "06", titulo: "Nutrición y menopausia", desc: "Alimentación para acompañar los cambios de esta etapa: energía, descanso, salud ósea y composición corporal." },
 ];
 
 export default function Home() {
@@ -50,8 +52,8 @@ export default function Home() {
             <strong>real, flexible y sostenible</strong> en el tiempo.
           </p>
           <p className="texto">
-            Trabajo con nutrición deportiva, antropometría y salud física, diseñando planes que se adaptan a vos y
-            no al revés.
+            Acompaño desde la nutrición deportiva y la antropometría hasta el embarazo, la preparación para el
+            nacimiento y la menopausia, con planes que se adaptan a vos y no al revés.
           </p>
         </div>
         <div className="sobre-fotos" data-reveal data-reveal-delay="150">

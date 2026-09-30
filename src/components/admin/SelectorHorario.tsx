@@ -61,7 +61,9 @@ export default function SelectorHorario({ consultorioId, tipoId, fecha, excluirI
           {slots === null && <p className="adm-muted adm-chico">Buscando horarios libres…</p>}
           {error && <p className="adm-error">{error}</p>}
           {slots && slots.length === 0 && !error && (
-            <p className="adm-muted adm-chico">No hay horarios libres ese día según la agenda.</p>
+            <p className="adm-muted adm-chico">
+              No hay horarios libres ese día según la agenda. Si lo coordinaste por WhatsApp, cargalo a mano abajo.
+            </p>
           )}
           {slots && slots.length > 0 && (
             <div className="adm-slots">

@@ -6,6 +6,10 @@ export type Consultorio = {
   link_mapa: string | null;
   whatsapp_clinica: string | null;
   reserva_online: boolean;
+  /** agenda = reserva web · whatsapp = se coordina con Julieta · clinica = turno por la clínica */
+  modalidad: "agenda" | "whatsapp" | "clinica";
+  /** Texto de un link secundario al WhatsApp de Julieta (ej. sobreturnos). */
+  extra_whatsapp: string | null;
   orden: number;
 };
 

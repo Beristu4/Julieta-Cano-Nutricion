@@ -14,20 +14,46 @@ type Props = {
 
 const num = (i: number) => String(i + 1).padStart(2, "0");
 
+const ETIQUETA: Record<Consultorio["modalidad"], string> = {
+  agenda: "Agenda online",
+  whatsapp: "Coordinamos por WhatsApp",
+  clinica: "Turnos por la clínica",
+};
+
 export default function Consultorios({ consultorios, tipos, reservaDisponible }: Props) {
   const [abierto, setAbierto] = useState<Consultorio | null>(null);
 
-  const conAgenda = consultorios.filter((c) => c.reserva_online);
-  const clinicas = consultorios.filter((c) => !c.reserva_online);
+  // Tarjetas grandes: los que atiende Julieta directamente (agenda web o coordinando por WhatsApp)
+  const propios = consultorios.filter((c) => c.modalidad !== "clinica");
+  const clinicas = consultorios.filter((c) => c.modalidad === "clinica");
+
+  function botonPrincipal(c: Consultorio) {
+    if (c.modalidad === "agenda" && reservaDisponible) {
+      return (
+        <button type="button" className="btn btn-primario btn-chico" onClick={() => setAbierto(c)}>
+          Reservar turno
+        </button>
+      );
+    }
+    const texto =
+      c.modalidad === "whatsapp"
+        ? `Hola Julieta! Quiero coordinar una consulta (${c.nombre}).`
+        : `Hola Julieta! Quiero reservar un turno en ${c.nombre}`;
+    return (
+      <a className="btn btn-primario btn-chico" href={waLink(texto)} target="_blank" rel="noopener noreferrer">
+        {c.modalidad === "whatsapp" ? "Coordinar por WhatsApp" : "Reservar turno"}
+      </a>
+    );
+  }
 
   return (
     <section id="donde" className="lugares">
-      {conAgenda.length > 0 && (
+      {propios.length > 0 && (
         <div className="tarjetas">
-          {conAgenda.map((c, i) => (
+          {propios.map((c, i) => (
             <div key={c.id} className="tarjeta-arco" data-reveal data-reveal-stagger>
               <span className="num">{num(i)}</span>
-              <span className="etiqueta">Agenda online</span>
+              <span className="etiqueta">{ETIQUETA[c.modalidad]}</span>
               <h3>{c.nombre}</h3>
               <p>
                 {c.direccion && (
@@ -43,18 +69,15 @@ export default function Consultorios({ consultorios, tipos, reservaDisponible }:
                   Ver mapa
                 </a>
               )}
-              {reservaDisponible ? (
-                <button type="button" className="btn btn-primario btn-chico" onClick={() => setAbierto(c)}>
-                  Reservar turno
-                </button>
-              ) : (
+              {botonPrincipal(c)}
+              {c.extra_whatsapp && (
                 <a
-                  className="btn btn-primario btn-chico"
-                  href={waLink(`Hola Julieta! Quiero reservar un turno en ${c.nombre}`)}
+                  className="extra-wpp"
+                  href={waLink(`Hola Julieta! Te escribo por ${c.nombre}: `)}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Reservar turno
+                  {c.extra_whatsapp}
                 </a>
               )}
             </div>

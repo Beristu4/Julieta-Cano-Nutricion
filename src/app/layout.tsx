@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     template: "%s · Julieta Cano Nutrición",
   },
   description:
-    "Lic. en Nutrición. Acompañamiento nutricional cercano y personalizado: nutrición deportiva, antropometría y salud física. Reservá tu turno online.",
+    "Lic. en Nutrición. Acompañamiento nutricional cercano y personalizado: nutrición deportiva, embarazo, preparación para el nacimiento, menopausia y antropometría. Reservá tu turno online.",
   openGraph: {
     title: "Julieta Cano · Nutrición",
     description: "Alimentar tu bienestar, a tu manera. Reservá tu turno online.",

@@ -46,6 +46,8 @@ Sin `.env.local` el sitio funciona igual con datos de respaldo, y los botones de
 2. **SQL Editor** → pegar y correr, en orden:
    1. `supabase/migrations/20260924000000_init.sql`
    2. `supabase/migrations/20260925000000_admin.sql`
+   3. `supabase/migrations/20260928000000_semanas_mes.sql`
+   4. `supabase/migrations/20260930000000_modalidad.sql`
 3. Pegar y correr `supabase/seed.sql` (una sola vez). Los horarios son **de ejemplo**: se cambian desde el panel.
 4. **Authentication → Sign In / Providers** → desactivar **Allow new users to sign up**. Solo el admin crea usuarios.
 5. **Project Settings → API** → copiar `Project URL`, la clave `anon public` y la `service_role` a `.env.local` (ver `.env.example`).

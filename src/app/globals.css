@@ -121,6 +121,8 @@ strong { font-weight: 500; }
 }
 .logo { display: flex; flex-direction: column; line-height: 1; color: var(--marron); }
 .logo:hover { color: var(--marron); }
+.logo-texto { display: flex; flex-direction: column; line-height: 1; }
+.logo-img { display: block; width: auto; max-width: 220px; object-fit: contain; }
 .logo-nombre { font-family: var(--font-serif), Georgia, serif; font-size: 22px; font-weight: 600; }
 .logo-sub { font-size: 9px; letter-spacing: 3.5px; text-transform: uppercase; color: var(--crema); margin-top: 4px; }
 
@@ -249,7 +251,8 @@ strong { font-weight: 500; }
 .servicios-cabecera p { font-size: 16px; line-height: 1.7; color: var(--crema-3); max-width: 40ch; }
 .servicios-grilla {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  column-gap: 32px;
   border-top: 1px solid rgba(253, 244, 239, 0.2);
 }
 .servicio {
@@ -329,6 +332,13 @@ strong { font-weight: 500; }
 .tarjeta-arco p { font-size: 15px; line-height: 1.6; color: var(--crema-3); flex: 1; max-width: 28ch; }
 .tarjeta-arco .mapa { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: var(--oliva); }
 .tarjeta-arco .btn { margin-top: 6px; }
+.tarjeta-arco .extra-wpp {
+  font-size: 13px; letter-spacing: 0.5px;
+  color: var(--crema-3);
+  border-bottom: 1px solid rgba(253, 244, 239, 0.35);
+  padding-bottom: 2px;
+}
+.tarjeta-arco .extra-wpp:hover { color: var(--crema); border-bottom-color: var(--crema); }
 
 .clinicas-cabecera {
   margin-top: clamp(70px, 9vw, 120px);

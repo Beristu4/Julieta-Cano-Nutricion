@@ -14,10 +14,11 @@ export const revalidate = 60;
 export default async function DondeEncontrarme() {
   const [{ consultorios, enVivo }, tipos] = await Promise.all([getConsultorios(), getTiposConsulta()]);
 
-  const conAgenda = consultorios.filter((c) => c.reserva_online);
+  const conAgenda = consultorios.filter((c) => c.modalidad === "agenda");
+  const porWhatsapp = consultorios.filter((c) => c.modalidad === "whatsapp");
   const nombres = (lista: string[]) =>
     lista.length <= 1 ? lista.join("") : `${lista.slice(0, -1).join(", ")} y ${lista[lista.length - 1]}`;
-  const clinicas = consultorios.filter((c) => !c.reserva_online);
+  const clinicas = consultorios.filter((c) => c.modalidad === "clinica");
 
   return (
     <>
@@ -31,6 +32,11 @@ export default async function DondeEncontrarme() {
             {conAgenda.length > 0 && (
               <>
                 En <strong>{nombres(conAgenda.map((c) => c.nombre))}</strong> reservás directo en mi agenda.{" "}
+              </>
+            )}
+            {porWhatsapp.length > 0 && (
+              <>
+                <strong>{nombres(porWhatsapp.map((c) => c.nombre))}</strong>: coordinamos día y horario por WhatsApp.{" "}
               </>
             )}
             {clinicas.length > 0 && (

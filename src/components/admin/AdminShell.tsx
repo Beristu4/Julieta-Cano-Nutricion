@@ -54,11 +54,12 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
     async (p: Perfil) => {
       if (!sb) return;
       const [{ data: cons }, { data: tps }, { data: asignados }] = await Promise.all([
-        sb.from("consultorios").select("id, nombre, reserva_online, activo, orden").order("orden"),
+        sb.from("consultorios").select("id, nombre, reserva_online, modalidad, activo, orden").order("orden"),
         sb.from("tipos_consulta").select("id, nombre, duracion_min, activo, orden").order("orden"),
         sb.from("perfil_consultorio").select("consultorio_id").eq("perfil_id", p.id),
       ]);
-      const todos = ((cons ?? []) as ConsultorioAdmin[]).filter((c) => c.reserva_online);
+      // En la agenda entran los consultorios que atiende Julieta (web o coordinados por WhatsApp)
+      const todos = ((cons ?? []) as ConsultorioAdmin[]).filter((c) => c.modalidad !== "clinica");
       const ids = new Set(((asignados ?? []) as { consultorio_id: string }[]).map((a) => a.consultorio_id));
       setConsultorios(p.rol === "admin" ? todos : todos.filter((c) => ids.has(c.id)));
       setTipos((tps ?? []) as TipoAdmin[]);

@@ -183,6 +183,56 @@
   .adm-semana { grid-template-columns: 1fr; }
   .adm-dia { background: rgba(255, 255, 255, 0.5); border-radius: 12px; padding: 6px; }
 }
+/* vista mes */
+.adm-mes { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }
+.adm-mes-dow { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--gris); text-align: center; padding: 4px 0; }
+.adm-mes-celda {
+  position: relative;
+  font: inherit; color: inherit; text-align: left; cursor: pointer;
+  min-height: 104px; min-width: 0;
+  display: flex; flex-direction: column; gap: 3px;
+  padding: 6px;
+  background: #fff;
+  border: 1px solid rgba(74, 68, 59, 0.1);
+  border-radius: 10px;
+}
+.adm-mes-celda:hover { border-color: rgba(74, 68, 59, 0.35); }
+.adm-mes-celda.fuera { background: transparent; opacity: 0.5; }
+.adm-mes-celda.hoy { border-color: var(--terracota); box-shadow: inset 0 0 0 1px var(--terracota); }
+.adm-mes-celda .num { font-family: var(--font-serif), Georgia, serif; font-size: 18px; font-weight: 600; line-height: 1; }
+.adm-mes-celda.hoy .num { color: var(--terracota); }
+.adm-mes-celda .cuenta {
+  position: absolute; top: 6px; right: 6px;
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 11px; font-weight: 500;
+  background: var(--marron); color: var(--crema);
+  border-radius: 100px; padding: 1px 7px;
+}
+.adm-mes-celda .cuenta i { width: 7px; height: 7px; border-radius: 50%; background: #e9a23b; display: inline-block; }
+.adm-mes-celda .items { display: flex; flex-direction: column; gap: 2px; margin-top: 4px; min-width: 0; }
+.adm-mes-celda .items span {
+  font-size: 11.5px; line-height: 1.25;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  padding-left: 5px; border-left: 2px solid var(--oliva);
+}
+.adm-mes-celda .items span.estado-pendiente { border-left-color: #e9a23b; }
+.adm-mes-celda .items span.estado-cancelado { text-decoration: line-through; opacity: 0.6; }
+.adm-mes-celda .items .mas { border-left: none; padding-left: 0; color: var(--gris); }
+@media (max-width: 700px) {
+  .adm-mes-celda { min-height: 54px; padding: 5px; }
+  .adm-mes-celda .items { display: none; }
+  .adm-mes-celda .cuenta { position: static; align-self: flex-start; margin-top: 4px; }
+}
+
+/* vista 45 días */
+.adm-grupo-dia {
+  font: inherit; cursor: pointer; text-align: left;
+  background: none; border: none; padding: 8px 2px 0;
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--font-serif), Georgia, serif; font-size: 20px; font-weight: 600; color: var(--marron);
+}
+.adm-grupo-dia:hover { color: var(--terracota); }
+
 .adm-vacio { padding: 28px 12px; text-align: center; color: var(--gris); }
 
 /* ---------- tablas ---------- */

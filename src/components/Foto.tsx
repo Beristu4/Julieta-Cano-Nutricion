@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type Props = {
   src: string | null | undefined;
@@ -11,6 +11,13 @@ type Props = {
 /** Imagen con placeholder rayado si falta el archivo o falla la carga. */
 export default function Foto({ src, alt, placeholder }: Props) {
   const [error, setError] = useState(false);
+  const ref = useRef<HTMLImageElement>(null);
+
+  // Si la imagen falló antes de que React hidrate, onError no se dispara: revisar al montar.
+  useEffect(() => {
+    const img = ref.current;
+    if (img && img.complete && img.naturalWidth === 0) setError(true);
+  }, [src]);
 
   if (!src || error) {
     return (
@@ -22,6 +29,6 @@ export default function Foto({ src, alt, placeholder }: Props) {
 
   return (
     // eslint-disable-next-line @next/next/no-img-element
-    <img className="foto" src={src} alt={alt} loading="lazy" onError={() => setError(true)} />
+    <img ref={ref} className="foto" src={src} alt={alt} onError={() => setError(true)} />
   );
 }

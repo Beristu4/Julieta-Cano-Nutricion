@@ -1,3 +1,4 @@
+import Logo from "./Logo";
 import { INSTAGRAM_URL, waLink } from "@/lib/site";
 
 export default function Footer() {
@@ -5,8 +6,7 @@ export default function Footer() {
     <footer className="footer">
       <div className="contenedor">
         <div className="logo">
-          <span className="logo-nombre">Julieta Cano</span>
-          <span className="logo-sub">Nutrición</span>
+          <Logo alto={56} />
         </div>
         <div className="footer-links">
           <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">Instagram</a>

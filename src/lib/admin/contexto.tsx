@@ -14,10 +14,13 @@ export type Perfil = {
   activo: boolean;
 };
 
+export type Modalidad = "agenda" | "whatsapp" | "clinica";
+
 export type ConsultorioAdmin = {
   id: string;
   nombre: string;
   reserva_online: boolean;
+  modalidad: Modalidad;
   activo: boolean;
   orden: number;
 };
@@ -49,7 +52,7 @@ export type AdminCtx = {
   user: User;
   perfil: Perfil;
   esAdmin: boolean;
-  /** Consultorios con agenda online que este usuario puede gestionar. */
+  /** Consultorios propios (agenda web o por WhatsApp) que este usuario puede gestionar. */
   consultorios: ConsultorioAdmin[];
   tipos: TipoAdmin[];
   recargarCatalogos: () => Promise<void>;

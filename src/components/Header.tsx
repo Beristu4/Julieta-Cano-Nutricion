@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import Logo from "./Logo";
 
 export default function Header() {
   const pathname = usePathname();
@@ -26,9 +27,8 @@ export default function Header() {
 
   return (
     <header className="header">
-      <Link href="/" className="logo" aria-label="Julieta Cano Nutrición, inicio">
-        <span className="logo-nombre">Julieta Cano</span>
-        <span className="logo-sub">Nutrición</span>
+      <Link href="/" className="logo" aria-label="Juli Nutrición, inicio">
+        <Logo alto={48} />
       </Link>
 
       <nav className="nav-desktop" aria-label="Principal">{links}</nav>

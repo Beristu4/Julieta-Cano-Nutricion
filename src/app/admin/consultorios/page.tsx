@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import Modal from "@/components/admin/Modal";
 import SoloAdmin from "@/components/admin/SoloAdmin";
-import { useAdmin, mensajeError } from "@/lib/admin/contexto";
+import { type Modalidad, useAdmin, mensajeError } from "@/lib/admin/contexto";
 
 type Consultorio = {
   id: string;
@@ -12,10 +12,17 @@ type Consultorio = {
   detalle: string | null;
   link_mapa: string | null;
   whatsapp_clinica: string | null;
-  reserva_online: boolean;
+  modalidad: Modalidad;
+  extra_whatsapp: string | null;
   activo: boolean;
   orden: number;
 };
+
+const MODALIDADES: { valor: Modalidad; etiqueta: string; ayuda: string }[] = [
+  { valor: "agenda", etiqueta: "Agenda online", ayuda: "Los pacientes reservan desde la web según los horarios cargados." },
+  { valor: "whatsapp", etiqueta: "Coordinar por WhatsApp", ayuda: "El botón abre tu WhatsApp. Los turnos se cargan a mano en la agenda." },
+  { valor: "clinica", etiqueta: "Turnos por la clínica", ayuda: "Se muestra aparte, con el botón al WhatsApp de la clínica." },
+];
 
 type Borrador = Omit<Consultorio, "id"> & { id?: string };
 
@@ -25,7 +32,8 @@ const VACIO: Borrador = {
   detalle: "",
   link_mapa: "",
   whatsapp_clinica: "",
-  reserva_online: true,
+  modalidad: "agenda",
+  extra_whatsapp: "",
   activo: true,
   orden: 0,
 };
@@ -40,7 +48,7 @@ function Consultorios() {
   const cargar = useCallback(async () => {
     const { data, error } = await sb
       .from("consultorios")
-      .select("id, nombre, direccion, detalle, link_mapa, whatsapp_clinica, reserva_online, activo, orden")
+      .select("id, nombre, direccion, detalle, link_mapa, whatsapp_clinica, modalidad, extra_whatsapp, activo, orden")
       .order("orden");
     if (error) setError(mensajeError(error));
     setLista((data ?? []) as Consultorio[]);
@@ -61,8 +69,9 @@ function Consultorios() {
       direccion: limpio(editando.direccion),
       detalle: limpio(editando.detalle),
       link_mapa: limpio(editando.link_mapa),
-      whatsapp_clinica: limpio(editando.whatsapp_clinica),
-      reserva_online: editando.reserva_online,
+      whatsapp_clinica: editando.modalidad === "clinica" ? limpio(editando.whatsapp_clinica) : null,
+      modalidad: editando.modalidad,
+      extra_whatsapp: limpio(editando.extra_whatsapp),
       activo: editando.activo,
       orden: Number(editando.orden) || 0,
     };
@@ -99,8 +108,8 @@ function Consultorios() {
         </button>
       </div>
       <p className="adm-muted">
-        Con <b>agenda online</b> los pacientes reservan desde la web. Sin agenda online solo se muestra el botón al
-        WhatsApp de la clínica.
+        <b>Agenda online</b>: reservan desde la web. <b>Por WhatsApp</b>: coordinan con vos (ej. consultas online).{" "}
+        <b>Por la clínica</b>: el turno lo da la clínica.
       </p>
       {error && !editando && <p className="adm-error">{error}</p>}
 
@@ -126,7 +135,11 @@ function Consultorios() {
                     <b style={{ fontWeight: 500 }}>{c.nombre}</b>
                     <div className="adm-muted adm-chico">{c.direccion ?? c.detalle ?? ""}</div>
                   </td>
-                  <td>{c.reserva_online ? <span className="adm-badge est-confirmado">Agenda online</span> : <span className="adm-tag">Por la clínica</span>}</td>
+                  <td>
+                    {c.modalidad === "agenda" && <span className="adm-badge est-confirmado">Agenda online</span>}
+                    {c.modalidad === "whatsapp" && <span className="adm-badge est-pendiente">Por WhatsApp</span>}
+                    {c.modalidad === "clinica" && <span className="adm-tag">Por la clínica</span>}
+                  </td>
                   <td>{c.activo ? "Visible" : <span className="adm-muted">Oculto</span>}</td>
                   <td style={{ textAlign: "right", whiteSpace: "nowrap" }}>
                     <button type="button" className="adm-btn adm-btn-chico" onClick={() => { setError(null); setEditando({ ...c }); }}>
@@ -162,11 +175,31 @@ function Consultorios() {
               <span>Link de Google Maps (opcional)</span>
               <input type="url" value={editando.link_mapa ?? ""} onChange={(e) => set("link_mapa", e.target.value)} />
             </label>
-            <label className="adm-check">
-              <input type="checkbox" checked={editando.reserva_online} onChange={(e) => set("reserva_online", e.target.checked)} />
-              Agenda online (los pacientes reservan desde la web)
-            </label>
-            {!editando.reserva_online && (
+            <div className="adm-campo">
+              <span>¿Cómo se dan los turnos?</span>
+              <div className="adm-pila" style={{ gap: 8 }}>
+                {MODALIDADES.map((m) => (
+                  <label key={m.valor} className="adm-check" style={{ alignItems: "flex-start" }}>
+                    <input type="radio" name="modalidad" checked={editando.modalidad === m.valor} onChange={() => set("modalidad", m.valor)} />
+                    <span>
+                      {m.etiqueta}
+                      <span className="adm-muted adm-chico" style={{ display: "block" }}>{m.ayuda}</span>
+                    </span>
+                  </label>
+                ))}
+              </div>
+            </div>
+            {editando.modalidad !== "clinica" && (
+              <label className="adm-campo">
+                <span>Link extra a tu WhatsApp (opcional)</span>
+                <input
+                  value={editando.extra_whatsapp ?? ""}
+                  onChange={(e) => set("extra_whatsapp", e.target.value)}
+                  placeholder="¿Necesitás un sobreturno? Escribime"
+                />
+              </label>
+            )}
+            {editando.modalidad === "clinica" && (
               <label className="adm-campo">
                 <span>WhatsApp de la clínica (número o link)</span>
                 <input value={editando.whatsapp_clinica ?? ""} onChange={(e) => set("whatsapp_clinica", e.target.value)} placeholder="261 555 1234" />
