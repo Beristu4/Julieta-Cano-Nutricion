@@ -41,7 +41,7 @@ export default function Home() {
           <div className="hero-texto" data-reveal>
             <span className="eyebrow" style={{ color: "var(--crema)" }}>Lic. en Nutrición</span>
             <h1 className="titulo-hero">
-              aprender a comer, <em>en cada etapa</em>
+              Aprender a comer, <em>en cada etapa</em>
             </h1>
             <p className="lead">
               Nutrición basada en evidencia, <strong>especializada en deporte</strong>. Te acompaño si entrenás, si
@@ -66,7 +66,7 @@ export default function Home() {
         <div className="sobre-texto" data-reveal>
           <span className="eyebrow" style={{ color: "var(--terracota)" }}>Sobre mí</span>
           <h2 className="titulo-seccion">
-            hola, soy <em>Julieta</em>.
+            Hola, soy <em>Julieta</em>.
           </h2>
           <p className="texto">
             Soy <strong>nutricionista, antropometrista ISAK 1</strong> y me formé en nutrición deportiva con{" "}
@@ -96,7 +96,7 @@ export default function Home() {
           <div className="servicios-cabecera" data-reveal>
             <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
               <span className="eyebrow" style={{ color: "var(--oliva)" }}>Qué ofrezco</span>
-              <h2 className="titulo-seccion" style={{ color: "var(--crema)" }}>servicios</h2>
+              <h2 className="titulo-seccion" style={{ color: "var(--crema)" }}>Servicios</h2>
             </div>
             <p>Un abordaje integral para acompañarte en cada etapa.</p>
           </div>
@@ -122,7 +122,7 @@ export default function Home() {
         <div className="contenido" data-reveal>
           <span className="eyebrow" style={{ color: "var(--terracota)" }}>Turnos</span>
           <h2>
-            empecemos <em>tu proceso</em>
+            Empecemos <em>tu proceso</em>
           </h2>
           <p className="texto">
             Reservá online en <Link href="/donde-encontrarme">mis consultorios</Link> o escribime por WhatsApp y

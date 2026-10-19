@@ -91,7 +91,7 @@ export default function Consultorios({ consultorios, tipos, reservaDisponible }:
             <div>
               <span className="eyebrow" style={{ color: "var(--terracota)" }}>Turnos por la clínica</span>
               <h2 className="titulo-seccion">
-                también <em>atiendo en</em>
+                También <em>atiendo en</em>
               </h2>
             </div>
             <p>El turno se coordina directamente con la clínica por WhatsApp.</p>

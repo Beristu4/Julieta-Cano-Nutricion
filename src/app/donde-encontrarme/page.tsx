@@ -26,7 +26,7 @@ export default async function DondeEncontrarme() {
         <div className="contenedor contenido" data-reveal>
           <span className="eyebrow" style={{ color: "var(--crema)" }}>Consultorios</span>
           <h1 className="titulo-hero">
-            dónde <em>encontrarme</em>
+            Dónde <em>encontrarme</em>
           </h1>
           <p className="lead">
             {conAgenda.length > 0 && (

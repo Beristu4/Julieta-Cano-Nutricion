@@ -20,7 +20,7 @@ export default async function Productos() {
         <div className="contenedor contenido" data-reveal style={{ width: "100%" }}>
           <span className="eyebrow" style={{ color: "var(--crema)" }}>Productos</span>
           <h1 className="titulo-hero">
-            próxima<em>mente</em>
+            Próxima<em>mente</em>
           </h1>
           <p className="lead">
             Estoy preparando productos para <strong>acompañarte también fuera de la consulta</strong>.
@@ -47,7 +47,7 @@ export default async function Productos() {
         <div className="contenedor contenido" data-reveal>
           <span className="eyebrow" style={{ color: "var(--crema)" }}>Productos</span>
           <h1 className="titulo-hero">
-            para tu <em>día a día</em>
+            Para tu <em>día a día</em>
           </h1>
           <p className="lead">
             Productos para <strong>acompañarte también fuera de la consulta</strong>. Consultá precios y

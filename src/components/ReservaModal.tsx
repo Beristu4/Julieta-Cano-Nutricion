@@ -300,7 +300,7 @@ export default function ReservaModal({ consultorio, tipos, onClose }: Props) {
           {sb && estado === "listo" && (
             <div className="paso" style={{ gap: 16 }}>
               <p className="listo-titulo">
-                ¡listo, <em>{nombre.trim().split(" ")[0]}</em>! Tu turno quedó reservado.
+                ¡Listo, <em>{nombre.trim().split(" ")[0]}</em>! Tu turno quedó reservado.
               </p>
               <div className="resumen">
                 <span>{resumenDia}</span>
