@@ -28,10 +28,10 @@ export const metadata: Metadata = {
     template: "%s · Julieta Cano Nutrición",
   },
   description:
-    "Lic. en Nutrición. Acompañamiento nutricional cercano y personalizado: nutrición deportiva, embarazo, preparación para el nacimiento, menopausia y antropometría. Reservá tu turno online.",
+    "Nutrición basada en evidencia, especializada en deporte. Embarazo, preparación para el nacimiento, menopausia y hábitos del día a día. Atención presencial en Mendoza y online.",
   openGraph: {
     title: "Julieta Cano · Nutrición",
-    description: "Alimentar tu bienestar, a tu manera. Reservá tu turno online.",
+    description: "Aprender a comer, en cada etapa. Nutrición deportiva, embarazo, menopausia y más, en Mendoza y online.",
     locale: "es_AR",
     type: "website",
   },

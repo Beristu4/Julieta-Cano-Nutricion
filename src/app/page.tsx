@@ -3,13 +3,34 @@ import Foto from "@/components/Foto";
 import Onda from "@/components/Onda";
 import { WHATSAPP_VISIBLE, waLink } from "@/lib/site";
 
-const SERVICIOS = [
-  { num: "01", titulo: "Nutrición", desc: "Planes personalizados basados en alimentación real, flexible y sostenible en el tiempo." },
-  { num: "02", titulo: "Nutrición deportiva", desc: "Estrategias de alimentación para acompañar tu rendimiento y tus objetivos deportivos." },
-  { num: "03", titulo: "Nutrición en el embarazo", desc: "Una alimentación segura y sin culpa para cubrir tus necesidades y las de tu bebé en cada etapa." },
-  { num: "04", titulo: "Antropometría", desc: "Medición y seguimiento de tu composición corporal para ajustar el plan con precisión." },
-  { num: "05", titulo: "Preparación integral para el nacimiento", desc: "Acompañamiento para llegar al nacimiento con información, hábitos saludables y tranquilidad." },
-  { num: "06", titulo: "Nutrición y menopausia", desc: "Alimentación para acompañar los cambios de esta etapa: energía, descanso, salud ósea y composición corporal." },
+type Grupo = {
+  num: string;
+  titulo: string;
+  bajada: string;
+  items: string[];
+  destacado?: boolean;
+};
+
+const GRUPOS: Grupo[] = [
+  {
+    num: "01",
+    titulo: "Deporte y rendimiento",
+    bajada: "Nutrición basada en evidencia para entrenar, competir y recuperarte mejor.",
+    items: ["Nutrición deportiva para chicos, adolescentes y adultos", "Antropometría ISAK"],
+    destacado: true,
+  },
+  {
+    num: "02",
+    titulo: "Etapas de la mujer",
+    bajada: "Acompañamiento en los momentos de cambio.",
+    items: ["Embarazo", "Preparación integral para el nacimiento", "Menopausia"],
+  },
+  {
+    num: "03",
+    titulo: "Nutrición para tu día a día",
+    bajada: "Alimentación real, flexible y sostenible.",
+    items: ["Mejorar tus hábitos sin dietas restrictivas ni recetas mágicas"],
+  },
 ];
 
 export default function Home() {
@@ -20,11 +41,12 @@ export default function Home() {
           <div className="hero-texto" data-reveal>
             <span className="eyebrow" style={{ color: "var(--crema)" }}>Lic. en Nutrición</span>
             <h1 className="titulo-hero">
-              alimentar tu bienestar, <em>a tu manera</em>
+              aprender a comer, <em>en cada etapa</em>
             </h1>
             <p className="lead">
-              Acompañamiento nutricional <strong>cercano y personalizado</strong>. Planes pensados para{" "}
-              <strong>tu cuerpo, tus objetivos y tu día a día</strong>.
+              Nutrición basada en evidencia, <strong>especializada en deporte</strong>. Te acompaño si entrenás, si
+              estás embarazada, en la menopausia o si querés mejorar tus hábitos en tu día a día.{" "}
+              <strong>Atención presencial en distintas partes de Mendoza y online.</strong>
             </p>
             <div className="acciones">
               <Link className="btn btn-primario" href="/donde-encontrarme">Agendar turno</Link>
@@ -47,13 +69,18 @@ export default function Home() {
             hola, soy <em>Julieta</em>.
           </h2>
           <p className="texto">
-            Soy <strong>licenciada en nutrición</strong> y me dedico a acompañar a cada persona en su proceso,{" "}
-            <strong>sin dietas restrictivas ni recetas mágicas</strong>. Creo en una alimentación{" "}
-            <strong>real, flexible y sostenible</strong> en el tiempo.
+            Soy <strong>nutricionista, antropometrista ISAK 1</strong> y me formé en nutrición deportiva con{" "}
+            <strong>Francis Holway</strong> y otros referentes de nutrición deportiva. Trabajo en el{" "}
+            <strong>Hospital Italiano de Mendoza</strong> y atiendo en consultorio presencial y online.
           </p>
           <p className="texto">
-            Acompaño desde la nutrición deportiva y la antropometría hasta el embarazo, la preparación para el
-            nacimiento y la menopausia, con planes que se adaptan a vos y no al revés.
+            Realizo <strong>deporte competitivo desde muy chica</strong>: sé lo que es entrenar, competir y no saber
+            bien qué comer.
+          </p>
+          <p className="texto">
+            Pero el deporte es solo una parte. Acompaño también el embarazo, la preparación para el nacimiento, la
+            menopausia y a quien simplemente quiere comer mejor. Porque creo que el gran desafío es{" "}
+            <strong>aprender a comer, en cada etapa de la vida</strong>, sin dietas restrictivas ni recetas mágicas.
           </p>
         </div>
         <div className="sobre-fotos" data-reveal data-reveal-delay="150">
@@ -73,12 +100,17 @@ export default function Home() {
             </div>
             <p>Un abordaje integral para acompañarte en cada etapa.</p>
           </div>
-          <div className="servicios-grilla">
-            {SERVICIOS.map((s) => (
-              <div key={s.num} className="servicio" data-reveal data-reveal-stagger>
-                <span className="num">{s.num}</span>
-                <h3>{s.titulo}</h3>
-                <p>{s.desc}</p>
+          <div className="servicios-grupos">
+            {GRUPOS.map((g) => (
+              <div key={g.num} className={`grupo ${g.destacado ? "destacado" : ""}`} data-reveal data-reveal-stagger>
+                <span className="num">{g.num}</span>
+                <h3>{g.titulo}</h3>
+                <p className="bajada">{g.bajada}</p>
+                <ul>
+                  {g.items.map((it) => (
+                    <li key={it}>{it}</li>
+                  ))}
+                </ul>
               </div>
             ))}
           </div>
