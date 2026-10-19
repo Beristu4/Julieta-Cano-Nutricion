@@ -512,3 +512,33 @@ html.reveal-activo [data-reveal].visible { opacity: 1; transform: none; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   html.reveal-activo [data-reveal] { opacity: 1; transform: none; }
 }
+
+/* ---------- redes sociales del footer ----------
+   Botones circulares: al pasar el mouse se llenan con el color de la red
+   y el ícono entra deslizándose desde arriba; al tocar se achican un poco. */
+.redes { display: flex; align-items: center; gap: 14px; }
+.red {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  background: var(--marron);
+  color: var(--crema);
+  transition: background 0.3s ease, transform 0.15s ease, box-shadow 0.3s ease;
+}
+.red:hover { color: #fff; box-shadow: 0 10px 22px rgba(74, 68, 59, 0.25); }
+.red:active { transform: scale(0.9); }
+.red:focus-visible { outline: 2px solid var(--crema); outline-offset: 3px; }
+.red-instagram:hover {
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
+}
+.red-whatsapp:hover { background: var(--wpp); }
+.red-icono { width: 22px; height: 22px; fill: currentColor; }
+.red:hover .red-icono { animation: red-entrar 0.3s both; }
+@keyframes red-entrar {
+  0% { transform: translateY(-50px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .red:hover .red-icono { animation: none; }
+}
